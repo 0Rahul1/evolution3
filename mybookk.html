@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Library Management System - Bookmark</title>
+<style>
+  /* Basic styling for the table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+</style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="mybooks.html">My Books</a></li>
+      <li><a href="bookmark.html">Bookmark</a></li>
+    </ul>
+  </nav>
+  
+  <!-- Table to display bookmarked books -->
+  <h2>Bookmarks</h2>
+  <table id="bookmark-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Author</th>
+        <th>Description</th>
+        <th>Added Date</th>
+        <th>Category</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Bookmarked book data will be dynamically added here -->
+    </tbody>
+  </table>
+
+  <script>
+    // Retrieve bookmarked book list from localStorage
+    let bookmarkList = JSON.parse(localStorage.getItem('bookmark-list')) || [];
+
+    // Function to display bookmarked books in the table
+    function displayBookmarks() {
+      const tableBody = document.querySelector('#bookmark-table tbody');
+      tableBody.innerHTML = ''; // Clear previous data
+
+      // Loop through each bookmarked book and append it to the table
+      bookmarkList.forEach(book => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${book.name}</td>
+          <td>${book.author}</td>
+          <td>${book.description}</td>
+          <td>${book.addedDate}</td>
+          <td>${book.category}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    // Display bookmarked books when the page loads
+    displayBookmarks();
+  </script>
+</body>
+</html>

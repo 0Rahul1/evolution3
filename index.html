@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evolution</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="mybooks.html">My Books</a></li>
+      <li><a href="bookmark.html">Bookmark</a></li>
+    </ul>
+  </nav>
+  
+  <h2>Add New Book</h2>
+  <form id="addBookForm">
+    <label for="bookName">Book Name:</label><br>
+    <input type="text" id="bookName" name="bookName"><br>
+    
+    <label for="authorName">Author Name:</label><br>
+    <input type="text" id="authorName" name="authorName"><br>
+    
+    <label for="bookDescription">Book Description:</label><br>
+    <textarea id="bookDescription" name="bookDescription"></textarea><br>
+    
+    <label for="addedDate">Added Date:</label><br>
+    <input type="date" id="addedDate" name="addedDate"><br>
+    
+    <label for="bookCategory">Book Category:</label><br>
+    <select id="bookCategory" name="bookCategory">
+      <option value="Fiction">Fiction</option>
+      <option value="Self Help">Self Help</option>
+      <option value="Finance">Finance</option>
+      
+      <input type="text" id="bookName" name="bookName" required maxlength="50">
+<input type="text" id="authorName" name="authorName" required maxlength="50">
+<textarea id="bookDescription" name="bookDescription" required maxlength="500"></textarea>
+<input type="date" id="addedDate" name="addedDate" required>
+<select id="bookCategory" name="bookCategory" required>
+ 
+</select>
+
+    </select><br>
+    
+    <button type="submit">Submit</button>
+    
+    <link rel="stylesheet" href="script.js">
+  </form>
+</body>
+</html>

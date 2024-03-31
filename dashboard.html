@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Library Management System - Dashboard</title>
+<style>
+  /* Basic styling for the table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  .button-container button {
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="mybooks.html">My Books</a></li>
+      <li><a href="bookmark.html">Bookmark</a></li>
+    </ul>
+  </nav>
+  
+  <!-- Book count -->
+  <h2>Total Books: <span id="book-count">0</span></h2>
+  <!-- Add this select dropdown menu above the table -->
+<label for="categoryFilter">Filter by Category:</label>
+<select id="categoryFilter">
+  <option value="">All Categories</option>
+  <option value="Fiction">Fiction</option>
+  <option value="Self Help">Self Help</option>
+  <option value="Finance">Finance</option>
+</select>
+
+<!-- Modify the table to include a specific ID -->
+<table id="book-table">
+  <!-- Table headers and body -->
+</table>
+
+
+  <!-- Table to display books -->
+  <table id="book-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Author</th>
+        <th>Description</th>
+        <th>Added Date</th>
+        <th>Category</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Book data will be dynamically added here -->
+    </tbody>
+  </table>
+  
+
+  <script>
+    // Retrieve book list from localStorage
+    let bookList = JSON.parse(localStorage.getItem('book-list')) || [];
+
+    // Function to display books in the table
+    function displayBooks() {
+      const tableBody = document.querySelector('#book-table tbody');
+      tableBody.innerHTML = ''; // Clear previous data
+
+      // Loop through each book and append it to the table
+      bookList.forEach((book, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${book.name}</td>
+          <td>${book.author}</td>
+          <td>${book.description}</td>
+          <td>${book.addedDate}</td>
+          <td>${book.category}</td>
+          <td class="button-container">
+            <button onclick="buyBook(${index})">Buy</button>
+            <button onclick="bookmarkBook(${index})">Bookmark</button>
+            <button onclick="deleteBook(${index})">Delete</button>
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
+
+      // Update book count
+      document.getElementById('book-count').textContent = bookList.length;
+    }
+
+    // Function to delete a book
+    function deleteBook(index) {
+      bookList.splice(index, 1); // Remove the book from the array
+      localStorage.setItem('book-list', JSON.stringify(bookList)); // Update localStorage
+      displayBooks(); // Refresh the table
+    }
+
+    // Function to buy a book
+    function buyBook(index) {
+      const boughtBook = bookList.splice(index, 1)[0]; // Remove the book from the array and get it
+      let buyList = JSON.parse(localStorage.getItem('buy-list')) || []; // Retrieve buy list from localStorage
+      buyList.push(boughtBook); // Add the bought book to the buy list
+      localStorage.setItem('buy-list', JSON.stringify(buyList)); // Update localStorage
+      displayBooks(); // Refresh the table
+    }
+
+    // Function to bookmark a book
+    function bookmarkBook(index) {
+      const bookmarkedBook = bookList.splice(index, 1)[0]; // Remove the book from the array and get it
+      let bookmarkList = JSON.parse(localStorage.getItem('bookmark-list')) || []; // Retrieve bookmark list from localStorage
+      bookmarkList.push(bookmarkedBook); // Add the bookmarked book to the bookmark list
+      localStorage.setItem('bookmark-list', JSON.stringify(bookmarkList)); // Update localStorage
+      displayBooks(); // Refresh the table
+    }
+
+    // Display books when the page loads
+    displayBooks();
+    // Add an event listener to the category filter select dropdown
+document.getElementById('categoryFilter').addEventListener('change', function() {
+  const selectedCategory = this.value;
+  displayBooks(selectedCategory); // Pass the selected category to the displayBooks function
+});
+
+// Modify the displayBooks function to accept an optional category parameter
+function displayBooks(categoryFilter = "") {
+  // Code to retrieve books from localStorage
+
+  // Filter books based on the category if provided
+  const filteredBooks = categoryFilter ? bookList.filter(book => book.category === categoryFilter) : bookList;
+
+  // Code to display filteredBooks in the table
+}
+
+  </script>
+</body>
+</html>
